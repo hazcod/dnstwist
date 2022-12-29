@@ -8,10 +8,6 @@ jobs:
   goreleaser:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: read
-      packages: write
-
     outputs:
       hashes: ${{ steps.hashes.outputs.hashes }}
       version: ${{ steps.semrel.outputs.version }}
