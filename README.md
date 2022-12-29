@@ -1,7 +1,10 @@
 # dnstwist
 
-This is a tool that will fetch potential typosquat domains which could be targeting your domain.
-It will take into account the registration and/or
+This is a tool that will fetch potential typosquatting or IDN domains which could be targeting your domain for spear phishing.
+
+It will take into account the registration and/or last updated WHOIS information and a potential whitelist.
+
+Domains identified can be sent to Slack for automated alert purposes.
 
 ## Usage
 
