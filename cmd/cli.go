@@ -18,7 +18,7 @@ func main() {
 
 	ctx := context.Background()
 
-	confFile := flag.String("config", "config.yml", "The YAML configuration file.")
+	confFile := flag.String("config", "", "The YAML configuration file.")
 	flag.Parse()
 
 	conf := config.Config{}
