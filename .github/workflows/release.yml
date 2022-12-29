@@ -56,7 +56,7 @@ jobs:
         rm .semrel .generated-go-semantic-release-changelog.md || true
     -
       name: Release
-      uses: goreleaser/goreleaser-action@v3.1.0
+      uses: goreleaser/goreleaser-action@v4.1.0
       if: steps.semrel.outputs.version != ''
       with:
         version: latest
