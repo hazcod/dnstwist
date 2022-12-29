@@ -22,8 +22,8 @@ release:
 dockers:
   -
     image_templates:
-    - "hazcod/dnstwist/dnstwist:latest"
-    - "hazcod/dnstwist/dnstwist:{{ .Tag }}"
+    - "hazcod/dnstwist:latest"
+    - "hazcod/dnstwist:{{ .Tag }}"
 
 sboms:
   -
