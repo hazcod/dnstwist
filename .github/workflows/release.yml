@@ -51,6 +51,14 @@ jobs:
       run: git fetch -a
       if: steps.semrel.outputs.version != ''
     -
+      name: Login to GitHub Docker registry
+      if: steps.semrel.outputs.version != ''
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    -
       name: Release
       uses: goreleaser/goreleaser-action@v4.1.0
       if: steps.semrel.outputs.version != ''

@@ -28,5 +28,7 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 # from now on, run as the unprivileged user
 USER 1000
 
+COPY dnstwist /dnstwist
+
 # entrypoint
 ENTRYPOINT ["/dnstwist"]
