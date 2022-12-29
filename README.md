@@ -41,3 +41,9 @@ You can also set configuration values via environment variables:
 ```shell
 % LOG_LEVEL=info DOMAIN_WATCHLIST=domain.com SLACK_WEBHOOK=xxx dnstwist
 ```
+
+And use it with the Docker image!
+
+```shell
+% docker run -ti --rm -e "DOMAIN_WATCHLIST=domain.com" -e "SLACK_WEBHOOK=xxx" ghcr.io/hazcod/dnstwist/dnstwist:latest
+```
