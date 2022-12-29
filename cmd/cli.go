@@ -50,7 +50,7 @@ func main() {
 	}
 
 	totalDomains := len(conf.Domains.WatchList)
-	suspiciousDomans := make(map[string]map[string]interface{})
+	suspiciousDomains := make(map[string]map[string]interface{})
 
 	logger.WithField("domains", totalDomains).Info("starting monitoring")
 
@@ -87,19 +87,19 @@ func main() {
 			domainLogger.WithFields(whoisResult).Info(attackDomain.Domain)
 
 			if suspicious {
-				suspiciousDomans[attackDomain.Domain] = whoisResult
+				suspiciousDomains[attackDomain.Domain] = whoisResult
 			}
 		}
 	}
 
-	logger.WithField("suspicious_domains", len(suspiciousDomans)).Info("concluded suspicious domains")
+	logger.WithField("suspicious_domains", len(suspiciousDomains)).Info("concluded suspicious domains")
 
 	if conf.Slack.Webhook != "" {
 		logger.Debug("reporting suspicious domain")
 
-		delete(suspiciousDomans, "suspicious")
+		delete(suspiciousDomains, "suspicious")
 
-		if err := slack.Post(logger, conf.Slack.Webhook, suspiciousDomans); err != nil {
+		if err := slack.Post(logger, conf.Slack.Webhook, suspiciousDomains); err != nil {
 			logger.WithError(err).Error("could not report domain to Slack")
 		}
 
