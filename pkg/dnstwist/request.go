@@ -35,6 +35,8 @@ type dnsTwistResponse struct {
 	URL        string `json:"url"`
 }
 
+// TODO: replace dnstwist by our own permutation engine
+
 func Request(ctx context.Context, l *logrus.Logger, domain string) (*Twister, error) {
 	if domain == "" || !strings.Contains(domain, ".") {
 		return nil, fmt.Errorf("invalid domain: %s", domain)
