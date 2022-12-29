@@ -19,6 +19,10 @@ changelog:
 release:
   disable: false
 
+dockers:
+  - image_templates:
+      - user/repo
+
 sboms:
   -
     artifacts: archive
