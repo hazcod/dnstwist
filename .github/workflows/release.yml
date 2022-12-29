@@ -12,6 +12,10 @@ jobs:
       contents: read
       packages: write
 
+    outputs:
+      hashes: ${{ steps.hashes.outputs.hashes }}
+      version: ${{ steps.semrel.outputs.version }}
+
     steps:
     -
       name: Checkout
@@ -74,12 +78,21 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     -
       name: Generate dist hashes
-      id: hash
+      id: hashes
+      if: steps.semrel.outputs.version != ''
+      env:
+        ARTIFACTS: "${{ steps.goreleaser.outputs.artifacts }}"
       run: |
-        echo "::set-output name=hashes::$(ls dist/* | xargs shasum -a256 | base64 -w0)"
-  
+        checksum_file=$(echo "$ARTIFACTS" | jq -r '.[] | select (.type=="Checksum") | .path')
+        echo "::set-output name=hashes::$(cat $checksum_file | base64 -w0)"
+
   provenance:
     needs: [goreleaser]
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.2.0
+    if: needs.goreleaser.outputs.hashes != ''
+    permissions:
+      actions: read # To read the workflow path.
+      id-token: write # To sign the provenance.
+      contents: write # To add assets to a release.
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.4.0
     with:
       base64-subjects: "${{ needs.goreleaser.outputs.hashes }}"
