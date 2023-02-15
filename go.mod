@@ -8,7 +8,7 @@ require (
 	github.com/likexian/whois v1.14.4
 	github.com/likexian/whois-parser v1.24.2
 	github.com/sirupsen/logrus v1.9.0
-	golang.org/x/net v0.6.0
+	golang.org/x/net v0.7.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
