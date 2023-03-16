@@ -20,12 +20,12 @@ jobs:
         echo "Using Go version ${goVersion}"
     -
       name: Set up Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v4
       with:
         go-version: ${{ steps.vars.outputs.go_version }}
     -
       name: Set up Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v4
     -
       name: Download Go modules
       run: go mod download
