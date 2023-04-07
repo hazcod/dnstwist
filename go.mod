@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/asaskevich/govalidator v0.0.0-20210307081110-f21760c49a8d
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/likexian/whois v1.14.4
+	github.com/likexian/whois v1.14.6
 	github.com/likexian/whois-parser v1.24.7
 	github.com/sirupsen/logrus v1.9.0
 	golang.org/x/net v0.9.0
