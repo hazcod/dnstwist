@@ -26,7 +26,9 @@ func getTopDomain(domain string) string {
 	return parts[len(parts)-2] + "." + parts[len(parts)-1]
 }
 
-func Get(logger *logrus.Entry, result dnstwist.Result, cutoffDate time.Time) (map[string]interface{}, bool, error) {
+func Get(l *logrus.Entry, result dnstwist.Result, cutoffDate time.Time) (map[string]interface{}, bool, error) {
+	logger := l.WithField("domain", result.Domain).WithField("cutoff_date", cutoffDate.Format(time.RFC1123Z))
+
 	asciiDomain, err := idna.ToASCII(result.Domain)
 	if err != nil {
 		logger.WithError(err).Warn("could not convert domain to ascii")
@@ -61,23 +63,26 @@ func Get(logger *logrus.Entry, result dnstwist.Result, cutoffDate time.Time) (ma
 		}
 
 		if whoisResult.Domain.ExpirationDateInTime != nil {
-			expires = whoisResult.Domain.ExpirationDateInTime.Format(time.RFC822)
+			expires = whoisResult.Domain.ExpirationDateInTime.Format(time.RFC1123Z)
 
 			if whoisResult.Domain.ExpirationDateInTime.Before(time.Now()) {
+				logger.Debug("suspicious; domain expiration is before today")
 				isSuspicious = true
 			}
 		}
 		if whoisResult.Domain.CreatedDateInTime != nil {
-			created = whoisResult.Domain.CreatedDateInTime.Format(time.RFC822)
+			created = whoisResult.Domain.CreatedDateInTime.Format(time.RFC1123Z)
 
 			if whoisResult.Domain.CreatedDateInTime.After(cutoffDate) {
+				logger.Debug("suspicious; domain recently created")
 				isSuspicious = true
 			}
 		}
 		if whoisResult.Domain.UpdatedDateInTime != nil {
-			updated = whoisResult.Domain.UpdatedDateInTime.Format(time.RFC822)
+			updated = whoisResult.Domain.UpdatedDateInTime.Format(time.RFC1123Z)
 
 			if whoisResult.Domain.UpdatedDateInTime.After(cutoffDate) {
+				logger.Debug("suspicious; domain recently updated")
 				isSuspicious = true
 			}
 		}
