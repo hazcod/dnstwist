@@ -52,6 +52,10 @@ func main() {
 	totalDomains := len(conf.Domains.WatchList)
 	suspiciousDomains := make(map[string]map[string]interface{})
 
+	if totalDomains == 0 {
+		logger.Fatal("no domains to monitor provided")
+	}
+
 	logger.WithField("domains", totalDomains).Info("starting monitoring")
 
 	for i, domain := range conf.Domains.WatchList {
