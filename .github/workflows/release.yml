@@ -26,7 +26,7 @@ jobs:
         echo "Using Go version ${goVersion}"
     -
       name: Set up Go
-      uses: actions/setup-go@v3
+      uses: actions/setup-go@v4
       with:
         go-version: ${{ steps.vars.outputs.go_version }}
     -
@@ -65,7 +65,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     -
       name: Release
-      uses: goreleaser/goreleaser-action@v4.1.0
+      uses: goreleaser/goreleaser-action@v4.2.0
       if: steps.semrel.outputs.version != ''
       with:
         version: latest
@@ -89,6 +89,6 @@ jobs:
       actions: read # To read the workflow path.
       id-token: write # To sign the provenance.
       contents: write # To add assets to a release.
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.4.0
+    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v1.5.0
     with:
       base64-subjects: "${{ needs.goreleaser.outputs.hashes }}"
