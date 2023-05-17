@@ -7,7 +7,7 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/likexian/whois v1.15.0
 	github.com/likexian/whois-parser v1.24.8
-	github.com/sirupsen/logrus v1.9.0
+	github.com/sirupsen/logrus v1.9.1
 	golang.org/x/net v0.10.0
 	gopkg.in/yaml.v3 v3.0.1
 )
